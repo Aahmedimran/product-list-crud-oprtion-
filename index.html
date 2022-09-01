@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>add product</title>
+</head>
+
+<body>
+    
+    <form>
+        <label onsubmit="addproduct(); return false">Product Name</label>
+        <input type="text" name="productName" id="productName">
+        <br />
+        <label for="">Product Price</label>
+        <input type="text" name="productPrice" id="productPrice">
+        <br />
+        <label for="">Currency Code</label>
+        <input type="text" name="currencyCode" id="currencyCode">
+        <br />
+        <label for="">Number Of Sale</label>
+        <input type="text" name="numberOfSale" id="numberOfSale">
+        <br />
+        <label for="">Rating</label>
+        <input type="text" name="rating" id="rating">
+        <br />
+        <label for="">Free Shipping</label>
+        <select name="" id="isFreeshipping">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+        <br />
+
+        <label for="">Shop Name</label>
+        <input type="text" name="shopName" id="shopName">
+        <br />
+        <button type="submit">Add product</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+
+
+let baseUrl;
+
+if (window.location.href.indexOf("https") === -1) {
+    baseUrl = "http://localhost:3000";
+} else {
+    baseUrl = "http://localhost:3000";
+}
+
+        const addproduct = () => {
+            let productName = document.querySelector("#productName").value;
+            let currencyCode = document.querySelector("#currencyCode").value;
+            let productPrice = document.querySelector("#productPrice").value;
+            let numberOfSale = document.querySelector("body.numberOfSale").value;
+            let rating = document.querySelector("#rating").value;
+            let isFreeshipping = document.querySelector("#isFreeshipping").value;
+            let shopName = document.querySelector("#shopName").value;
+
+
+            axios.post('http://localhost:3000/products', {
+                productName,
+                productPrice,
+                currencyCode,
+                numberOfSale,
+
+                
+                rating,
+                isFreeshipping,
+                shopName,
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    document.querySelector("#message").innerHTML = error.response.data;
+                });
+
+
+        }
+    </script>
+</body>
+
+</html>
